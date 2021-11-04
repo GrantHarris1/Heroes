@@ -52,11 +52,6 @@ if ($conn->connect_error) {
 
 
 
-// Create connection
-
-// Check connection
-
-
 // Read
 function readHero(){
 $servername = "localhost";
@@ -89,6 +84,60 @@ mysqli_close($conn);
    
 
 }
+function updateHero($id, $name, $about_me, $biography){
+    //
+    //array_splice($_SESSION["heroes"],$index,1,[[$name, $tagline]]);
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "Heroes";
+
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    
+    $sql = "UPDATE heroes SET about_me='$about_me', name='$name', biography='$biography' WHERE heroes.id=$id";
+    
+    if ($conn->query($sql) === TRUE) {
+        echo "Record updated successfully";
+    } else {
+        echo "Error updating record: " . $conn->error;
+    }
+    $conn->close();
+
+}
+
+function deleteHero($id){
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "Heroes";
+
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    // Check connection
+    if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+    }
+
+    // sql to delete a record
+    $sql = "DELETE FROM heroes WHERE heroes.id='$id'";
+
+    if ($conn->query($sql) === TRUE) {
+    echo "Record deleted successfully";
+    } else {
+    echo "Error deleting record: " . $conn->error;
+    }
+}
+
+// Create connection
+
+// Check connection
+
+
 
 
 
@@ -121,10 +170,11 @@ if (isset($_GET['action'])) {
             readHero();
             break;
         case "update":
-            //updateHero($_GET["id"], $_GET["name"], $_GET["tagline"]);
+        // updateHero($id, $name, $tagline);
+            updateHero($_POST["id"], $_POST["name"], $_POST["about_me"], $_POST["biography"]);
             break;
         case "delete":
-            //deleteHero($_GET["id"]);
+            deleteHero($_GET["id"]);
             break;
         default:
         
