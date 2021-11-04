@@ -19,13 +19,33 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
-echo "Connected successfully";
-function createHero($name, $about_me, $biography){
+//echo "Connected successfully";
+function createHero($name, $about, $biography){
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "Heroes";
 
-print_r($_GET);
-  $SQL =   "INSERT INTO heroes( name, about_me, biography)
-     VALUES ('$name', '$about_me, '$biography' )";
-     echo $SQL;
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);}
+
+  print_r($_GET);
+    $SQL =   "INSERT INTO heroes ( name, about_me, biography)
+       VALUES ('$name', '$about', '$biography' )";
+       echo $SQL;
+    if ($conn->query($SQL) === TRUE) {
+            echo "New Hero created successfully";
+            echo '<br>';
+        }
+        else {
+            echo "Error: " . $SQL . "<br>" . $conn->error;
+        }
+
+   
 
 }
 
@@ -36,8 +56,21 @@ if (isset($_GET['action'])) {
     switch ($action) {
 
         case "create":
-        echo "hey create";
-            createHero($name, $about_me, $biography);
+            // conn
+            // check isset($_GET['name']);
+            if(isset($_GET["name"])){
+                $name = $_GET["name"];
+
+            }
+            if(isset($_GET["about"])){
+                $about = $_GET["about"];
+            }
+            if(isset($_GET["biography"])){
+                $biography  = $_GET["biography"];
+            }
+            
+            //echo "hey create";
+            createHero($name, $about, $biography);
             break;
         case "read":
             //readAllHeroes();
