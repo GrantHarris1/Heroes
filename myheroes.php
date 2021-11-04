@@ -44,6 +44,7 @@ if ($conn->connect_error) {
         else {
             echo "Error: " . $SQL . "<br>" . $conn->error;
         }
+        mysqli_close($conn);
 
    
 
