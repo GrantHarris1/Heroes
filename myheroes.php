@@ -20,7 +20,7 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 //echo "Connected successfully";
-function createHero($name, $about, $biography){
+function createHero($name, $about_me, $biography){
     $servername = "localhost";
     $username = "root";
     $password = "";
@@ -33,9 +33,9 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);}
 
-  print_r($_GET);
+  print_r($_POST);
     $SQL =   "INSERT INTO heroes ( name, about_me, biography)
-       VALUES ('$name', '$about', '$biography' )";
+       VALUES ('$name', '$about_me', '$biography' )";
        echo $SQL;
     if ($conn->query($SQL) === TRUE) {
             echo "New Hero created successfully";
@@ -156,15 +156,15 @@ if (isset($_GET['action'])) {
                 $name = $_GET["name"];
 
             }
-            if(isset($_GET["about"])){
-                $about = $_GET["about"];
+            if(isset($_GET["about_me"])){
+                $about_me = $_GET["about_me"];
             }
             if(isset($_GET["biography"])){
                 $biography  = $_GET["biography"];
             }
             
             //echo "hey create";
-            createHero($name, $about, $biography);
+            createHero($name, $about_me, $biography);
             break;
         case "read":
             readHero();
