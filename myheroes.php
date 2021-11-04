@@ -50,6 +50,50 @@ if ($conn->connect_error) {
 
 }
 
+
+
+// Create connection
+
+// Check connection
+
+
+// Read
+function readHero(){
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "Heroes";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// $conn = mysqli_connect($servername, $username, $password, $dbname);
+// Check connection
+if (!$conn) {
+  die("Connection failed: " . mysqli_connect_error());
+}
+
+$sql = "SELECT name, about_me, biography FROM heroes";
+$result = mysqli_query($conn, $sql);
+
+if (mysqli_num_rows($result) > 0) {
+  // output data of each row
+  while($row = mysqli_fetch_assoc($result)) {
+    echo "Name " . $row["name"]. "  " . $row["about_me"]. " " . $row["biography"]. "<br>";
+  }
+} else {
+  echo "0 results";
+}
+
+mysqli_close($conn);
+
+   
+
+}
+
+
+
+
+
 //echo "<pre>" . print_r($action, 1) . "</pre>";
 
 if (isset($_GET['action'])) {
@@ -74,7 +118,7 @@ if (isset($_GET['action'])) {
             createHero($name, $about, $biography);
             break;
         case "read":
-            //readAllHeroes();
+            readHero();
             break;
         case "update":
             //updateHero($_GET["id"], $_GET["name"], $_GET["tagline"]);
