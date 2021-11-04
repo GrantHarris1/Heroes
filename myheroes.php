@@ -124,7 +124,7 @@ function deleteHero($id){
     }
 
     // sql to delete a record
-    $sql = "DELETE FROM heroes WHERE heroes.id='$id'";
+    $sql = "DELETE FROM heroes WHERE id='$id'";
 
     if ($conn->query($sql) === TRUE) {
     echo "Record deleted successfully";
